@@ -4,22 +4,16 @@ require 'ruby-osc'
 
 include  OSC
 
-puts
-
-zeroconf_registrar = fork {
+zeroconf_registrar = Thread.new() {
   registrar = DNSSD::Service.new
   registrar.register 'sam', '_osc._udp', nil, 9090, do |r|
     puts "registered #{r.fullname}"
   end
 }
-Process.detach(zeroconf_registrar)
 
-zeroconf_browser = fork {
+zeroconf_browse_and_resolve = Thread.new() {
   browser = DNSSD::Service.new
   services = {}
-
-  puts
-  puts "Browsing for open sound control UDP services"
 
   browser.browse '_osc._udp' do |reply|
     services[reply.fullname] = reply
@@ -28,24 +22,29 @@ zeroconf_browser = fork {
     services.sort_by do |_, service|
       [(service.flags.add? ? 0 : 1), service.fullname]
     end.each do |_, service|
-      add = service.flags.add? ? 'Add' : 'Remove'
-      puts "#{add} #{service.name} on #{service.domain}"
+      next unless service.flags.add?
+
+      resolver = DNSSD::Service.new
+      resolver.resolve service do |r|
+        puts "#{r.name} on #{r.target}:#{r.port}"
+        break unless r.flags.more_coming?
+      end
+
+      resolver.stop
     end
 
     services.clear
-
-    puts
   end
 }
-Process.detach(zeroconf_browser)
 
 server = Server.new 9090
 
 server.add_pattern /.*/ do |*args|       # this will match any address
-  p "/.*/:       #{ args.join(', ') }"
+  puts "/.*/:       #{ args.join(', ') }"
 end
 
 server.add_pattern "/exit" do |*args|    # this will just match /exit address
+  server.stop
   exit
 end
 
