@@ -4,45 +4,45 @@ require 'ruby-osc'
 
 include  OSC
 
+puts "What is your name?"
+$name = gets.chomp
+$port = 9090
+server = Server.new $port
+
 zeroconf_registrar = Thread.new() {
   registrar = DNSSD::Service.new
-  registrar.register 'sam', '_osc._udp', nil, 9090, do |r|
-    puts "registered #{r.fullname}"
+  registrar.register $name, '_osc._udp', nil, $port, do |r|
   end
 }
+    
+zeroconf_browse_and_resolve = Thread.new() {
+  browser = DNSSD::Service.new
+  services = {}
 
-zeroconf_loop = Thread.new() {
-  while (1)
-    zeroconf_browse_and_resolve = Thread.new() {
-      browser = DNSSD::Service.new
-      services = {}
+  browser.browse '_osc._udp' do |reply|
+    services[reply.fullname] = reply
+    next if reply.flags.more_coming?
 
-      browser.browse '_osc._udp' do |reply|
-        services[reply.fullname] = reply
-        next if reply.flags.more_coming?
+    services.sort_by do |_, service|
+      [(service.flags.add? ? 0 : 1), service.fullname]
+    end.each do |_, service|
+      add = service.flags.add? ? 'Add' : 'Remove'
+      puts "#{add} #{service.name} on #{service.domain}"
+      next unless service.flags.add?
 
-        services.sort_by do |_, service|
-          [(service.flags.add? ? 0 : 1), service.fullname]
-        end.each do |_, service|
-          next unless service.flags.add?
-
-          resolver = DNSSD::Service.new
-          resolver.resolve service do |r|
-            puts "#{r.name} on #{r.target}:#{r.port}"
-            break unless r.flags.more_coming?
-          end
-
-          resolver.stop
-        end
-
-        services.clear
+      resolver = DNSSD::Service.new
+      resolver.resolve service do |r|
+        puts "#{r.name} on #{r.target}:#{r.port}"
+        puts "\t#{r.text_record.inspect}" unless r.text_record.empty?
+        break unless r.flags.more_coming?
       end
-    }
-    sleep(5)
+
+      resolver.stop
+    end
+
+    services.clear
   end
 }
-
-server = Server.new 9090
 
 server.add_pattern /.*/ do |*args|       # this will match any address
   puts "/.*/:       #{ args.join(', ') }"
