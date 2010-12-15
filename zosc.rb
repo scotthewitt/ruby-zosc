@@ -27,13 +27,12 @@ zeroconf_browse_and_resolve = Thread.new() {
       [(service.flags.add? ? 0 : 1), service.fullname]
     end.each do |_, service|
       add = service.flags.add? ? 'Add' : 'Remove'
-      puts "#{add} #{service.name} on #{service.domain}"
+      puts "#{add} #{service.name}"
       next unless service.flags.add?
 
       resolver = DNSSD::Service.new
       resolver.resolve service do |r|
-        puts "#{r.name} on #{r.target}:#{r.port}"
-        puts "\t#{r.text_record.inspect}" unless r.text_record.empty?
+        puts "-> #{r.target}:#{r.port}"
         break unless r.flags.more_coming?
       end
 
