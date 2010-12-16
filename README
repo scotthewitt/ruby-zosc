@@ -13,7 +13,7 @@ $ruby zosc.rb
 
 Registers as _osc._udp on port 9092 as a zeroconf service
 
-All messages received on port 9092 from the network are also routed to localhost port 9091.
+All messages received on port 9092 from the network are routed to localhost port 9091.
 
 All messages received on port 9090 are routed to localhost port 9091 and via unicast to all other instances of the software on port 9092
 
@@ -45,5 +45,5 @@ See the Max MSP 5 example patcher for a demo.
 	* git clone git://github.com/samBiotic/zosc.git
 	* ruby zosc.rb #sometimes eventmachine complains it isn't initialised but keep running the command until it asks for your name
 	
-* Now send any osc message on port 9090 and receive on port 9091
+* Now send any osc message to the network via localhost on port 9090 and receive from the network on on port 9091
 * Enjoy!
