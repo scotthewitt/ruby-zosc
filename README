@@ -1,15 +1,17 @@
 = zosc
 
+A work in progress
+
 == DESCRIPTION:
 
-Open Sound Control router using DNS Service Discovery (aka Bonjour, MDNS)
+Open Sound Control router using zeroconf DNS Service Discovery (aka Bonjour, MDNS)
 
 == SYNOPSIS:
 
 run with
 $ruby zosc.rb
 
-Routes all messages received on port 9090 via unicast to all other instances of the software on a network or software registered as a _osc._udp zeroconf service.
+Routes all messages received on port 9090 via unicast to all other instances of the software (or other software registered as an _osc._udp zeroconf service)
 
 All messages received are sent out on localhost port 9091.
 
