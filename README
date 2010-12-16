@@ -11,9 +11,11 @@ Open Sound Control router using zeroconf DNS Service Discovery (aka Bonjour, MDN
 run with
 $ruby zosc.rb
 
-Routes all messages received on port 9090 via unicast to all other instances of the software (or other software registered as an _osc._udp zeroconf service)
+Registers as _osc._udp on port 9092 as a zeroconf service
 
-All messages received are sent out on localhost port 9091.
+All messages received on port 9092 from the network are also routed to localhost port 9091.
+
+All messages received on port 9090 are routed to localhost port 9091 and via unicast to all other instances of the software on port 9092
 
 See the Max MSP 5 example patcher for a demo.
 
@@ -22,3 +24,26 @@ See the Max MSP 5 example patcher for a demo.
 * Ruby 1.9.1 or JRuby
 * gem install dnssd
 * gem install ruby-osc
+* This should be cross platform because of the ruby gems used, but is untested on everything but OS X 10.6
+
+* OS X install instructions: 
+* A local copy of git installed to clone the project 
+* Ruby 1.9.1 or JRuby is needed for the gems used
+* OS X 10.6 comes with Ruby 1.8.7 preinstalled, so we can manage multiple installs of ruby with RVM http://rvm.beginrescueend.com/
+* I recommend Homebrew http://github.com/mxcl/homebrew for dependancies
+
+	* sudo gem update --system #the version of rubygems that comes with Snow Leopard is a bit outdated so update it.
+	* sudo sudo gem install rvm 
+	* rvm-install #follow on screen instructions to add it to your ~/.bash_profile
+	* rvm install 1.9.1 #this may take a while
+	* rvm use 1.9.1 #do this for each terminal window you want to run a different version of ruby in
+	* ruby -v #check current ruby version
+	* sudo gem install dnssd
+	* sudo gem install ruby-osc
+	* brew install git 
+	* cd /some/working/dir 
+	* git clone git://github.com/samBiotic/zosc.git
+	* ruby zosc.rb #sometimes eventmachine complains it isn't initialised but keep running the command until it asks for your name
+	
+* Now send any osc message on port 9090 and receive on port 9091
+* Enjoy!
