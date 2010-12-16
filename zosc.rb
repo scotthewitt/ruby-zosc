@@ -14,7 +14,6 @@ client = Client.new $tx_port
 $clients << [$name, client]
 server = Server.new $rx_port
 
-
 zeroconf_registrar = Thread.new() {
   registrar = DNSSD::Service.new
   registrar.register $name, '_osc._udp', nil, $rx_port, do |r|
@@ -67,4 +66,3 @@ server.add_pattern "/exit" do |*args|    # this will just match /exit address
 end
 
 OSC::Thread.join
-
