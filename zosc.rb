@@ -54,7 +54,7 @@ zeroconf_browse_and_resolve = Thread.new() {
 }
 
 server.add_pattern /.*/ do |*args|       # this will match any address
-  puts "/.*/:       #{ args.join(', ') }"
+  puts "#{ args.join(', ') }"
   $clients.length.times do |i|
     $clients[i][1].send Message.new(args[0], *args[1..-1])
   end
