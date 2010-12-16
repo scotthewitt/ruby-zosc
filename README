@@ -29,10 +29,10 @@ See the Max MSP 5 example patcher for a demo.
 * OS X install instructions: 
 * A local copy of git installed to clone the project 
 * Ruby 1.9.1 or JRuby is needed for the gems used
-* OS X 10.6 comes with Ruby 1.8.7 preinstalled, so we can manage multiple installs of ruby with RVM http://rvm.beginrescueend.com/
+* OS X 10.6 comes with Ruby 1.8.7 preinstalled, so we can manage multiple installs of ruby with RVM
 * I recommend Homebrew http://github.com/mxcl/homebrew for dependancies
 
-	* sudo gem update --system #the version of rubygems that comes with Snow Leopard is a bit outdated so update it.
+	* sudo gem update --system #the version of rubygems that comes with 10.6 is a bit outdated so update it.
 	* sudo sudo gem install rvm 
 	* rvm-install #follow on screen instructions to add it to your ~/.bash_profile
 	* rvm install 1.9.1 #this may take a while
@@ -43,7 +43,7 @@ See the Max MSP 5 example patcher for a demo.
 	* brew install git 
 	* cd /some/working/dir 
 	* git clone git://github.com/samBiotic/zosc.git
-	* ruby zosc.rb #sometimes eventmachine complains it isn't initialised but keep running the command until it asks for your name
+	* ruby zosc.rb #eventmachine may say it isn't initialised, if so run again
 	
 * Now send any osc message to the network via localhost on port 9090 and receive from the network on on port 9091
 * Quit with /exit message sent to localhost 9090
