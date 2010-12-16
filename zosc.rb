@@ -38,8 +38,6 @@ zeroconf_browse_and_resolve = Thread.new() {
         if add == 'Remove' then
           $clients.delete_at($clients.index($clients.detect{|aa| aa.include?(service.name)}))
         end
-         print $clients
-          puts
         next unless service.flags.add?
      
         resolver = DNSSD::Service.new
@@ -47,8 +45,6 @@ zeroconf_browse_and_resolve = Thread.new() {
           puts "-> #{r.target}:#{r.port}"
           client = Client.new r.port, r.target
           $clients << [r.name, client]
-          print $clients
-          puts
           break unless r.flags.more_coming?
         end
         resolver.stop
