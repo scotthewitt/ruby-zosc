@@ -5,13 +5,19 @@ require 'ruby-osc'
 include  OSC
 
 puts "What is your name?"
+
 $name = gets.chomp
-$port = 9090
-server = Server.new $port
+$rx_port = 9090
+$tx_port = 9091
+$clients = Array.new
+client = Client.new $tx_port
+$clients << client
+server = Server.new $rx_port
+
 
 zeroconf_registrar = Thread.new() {
   registrar = DNSSD::Service.new
-  registrar.register $name, '_osc._udp', nil, $port, do |r|
+  registrar.register $name, '_osc._udp', nil, $rx_port, do |r|
   end
 }
     
@@ -26,25 +32,30 @@ zeroconf_browse_and_resolve = Thread.new() {
     services.sort_by do |_, service|
       [(service.flags.add? ? 0 : 1), service.fullname]
     end.each do |_, service|
-      add = service.flags.add? ? 'Add' : 'Remove'
-      puts "#{add} #{service.name}"
-      next unless service.flags.add?
-
-      resolver = DNSSD::Service.new
-      resolver.resolve service do |r|
-        puts "-> #{r.target}:#{r.port}"
-        break unless r.flags.more_coming?
-      end
-
-      resolver.stop
+      if service.name != $name then
+        add = service.flags.add? ? 'Add' : 'Remove'
+        puts "#{add} #{service.name}"
+        next unless service.flags.add?
+     
+        resolver = DNSSD::Service.new
+        resolver.resolve service do |r|
+          puts "-> #{r.target}:#{r.port}"
+          client = Client.new r.port, r.target
+          $clients << client
+          break unless r.flags.more_coming?
+        end
+        resolver.stop
+      end      
     end
-
     services.clear
   end
 }
 
 server.add_pattern /.*/ do |*args|       # this will match any address
   puts "/.*/:       #{ args.join(', ') }"
+  $clients.length.times do |i|
+    $clients[i].send Message.new(args[0], *args[1..-1])
+  end
 end
 
 server.add_pattern "/exit" do |*args|    # this will just match /exit address
