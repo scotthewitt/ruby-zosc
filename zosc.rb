@@ -11,7 +11,7 @@ $rx_port = 9090
 $tx_port = 9091
 $clients = Array.new
 client = Client.new $tx_port
-$clients << client
+$clients << [$name, client]
 server = Server.new $rx_port
 
 
@@ -35,13 +35,20 @@ zeroconf_browse_and_resolve = Thread.new() {
       if service.name != $name then
         add = service.flags.add? ? 'Add' : 'Remove'
         puts "#{add} #{service.name}"
+        if add == 'Remove' then
+          $clients.delete_at($clients.index($clients.detect{|aa| aa.include?(service.name)}))
+        end
+         print $clients
+          puts
         next unless service.flags.add?
      
         resolver = DNSSD::Service.new
         resolver.resolve service do |r|
           puts "-> #{r.target}:#{r.port}"
           client = Client.new r.port, r.target
-          $clients << client
+          $clients << [r.name, client]
+          print $clients
+          puts
           break unless r.flags.more_coming?
         end
         resolver.stop
@@ -54,7 +61,7 @@ zeroconf_browse_and_resolve = Thread.new() {
 server.add_pattern /.*/ do |*args|       # this will match any address
   puts "/.*/:       #{ args.join(', ') }"
   $clients.length.times do |i|
-    $clients[i].send Message.new(args[0], *args[1..-1])
+    $clients[i][1].send Message.new(args[0], *args[1..-1])
   end
 end
 
@@ -64,3 +71,4 @@ server.add_pattern "/exit" do |*args|    # this will just match /exit address
 end
 
 OSC::Thread.join
+
