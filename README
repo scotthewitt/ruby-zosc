@@ -1,49 +1,46 @@
 = zosc
 
-A work in progress
+A work in progress that comes with no warranty
 
 == DESCRIPTION:
 
-Open Sound Control router using zeroconf DNS Service Discovery (aka Bonjour, MDNS)
+Open sound control router using zeroconf DNS service discovery (aka Bonjour, MDNS)
 
 == SYNOPSIS:
 
-run with
-$ruby zosc.rb
+Registers on port 9092 as a zeroconf _osc._udp service
 
-Registers as _osc._udp on port 9092 as a zeroconf service
-
-All messages received on port 9092 from the network are routed to localhost port 9091.
-
-All messages received on port 9090 are routed to localhost port 9091 and via unicast to all other instances of the software on port 9092
+Messages received on port 9090 are routed via unicast to other instances of the software on the network via port 9092
+Messages received on port 9090 are routed to localhost port 9091
+Messages received on port 9092 from the network are routed to localhost port 9091
 
 See the Max MSP 5 example patcher for a demo.
 
-== REQUIREMENTS & INSTALL:
+== REQUIREMENTS, INSTALL & USE:
 
-* Ruby 1.9.1 or JRuby
-* gem install dnssd
-* gem install ruby-osc
-* This should be cross platform because of the ruby gems used, but is untested on everything but OS X 10.6
+This should be cross platform because of the ruby gems used, but is untested on everything but OS X 10.6
+Ruby 1.9.1+ or JRuby
+dnssd gem https://github.com/tenderlove/dnssd
+ruby-osc gem https://github.com/maca/ruby-osc
 
-* OS X install instructions: 
-* A local copy of git installed to clone the project 
-* Ruby 1.9.1 or JRuby is needed for the gems used
-* OS X 10.6 comes with Ruby 1.8.7 preinstalled, so we can manage multiple installs of ruby with RVM
-* I recommend Homebrew http://github.com/mxcl/homebrew for dependancies
+OS X install instructions: 
+A local copy of git installed to clone the project 
+Ruby 1.9.1 or JRuby is needed for the gems used
+OS X 10.6 comes with Ruby 1.8.7 preinstalled, so we can manage multiple installs of ruby with RVM
+I recommend Homebrew http://github.com/mxcl/homebrew for dependancies
 
-	* sudo gem update --system #the version of rubygems that comes with 10.6 is a bit outdated so update it.
-	* sudo sudo gem install rvm 
-	* rvm-install #follow on screen instructions to add it to your ~/.bash_profile
-	* rvm install 1.9.1 #this may take a while
-	* rvm use 1.9.1 #do this for each terminal window you want to run a different version of ruby in
-	* ruby -v #check current ruby version
-	* sudo gem install dnssd
-	* sudo gem install ruby-osc
-	* brew install git 
-	* cd /some/working/dir 
-	* git clone git://github.com/samBiotic/zosc.git
-	* ruby zosc.rb #eventmachine may say it isn't initialised, if so run again
+	$ sudo gem update --system #the version of rubygems that comes with 10.6 is a bit outdated so update it.
+	$ sudo sudo gem install rvm 
+	$ rvm-install #follow on screen instructions to add it to your ~/.bash_profile
+	$ rvm install 1.9.1 #this may take a while
+	$ rvm use 1.9.1 #do this for each terminal window you want to run a different version of ruby in
+	$ ruby -v #check current ruby version
+	$ sudo gem install dnssd
+	$ sudo gem install ruby-osc
+	$ brew install git 
+	$ cd /some/working/dir 
+	$ git clone git://github.com/samBiotic/zosc.git
+	$ ruby zosc.rb #eventmachine may say it isn't initialised, if so run again
 	
 * Now send any osc message to the network via localhost on port 9090 and receive from the network on on port 9091
 * Quit with /exit message sent to localhost 9090
