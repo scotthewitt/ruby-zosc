@@ -46,4 +46,5 @@ See the Max MSP 5 example patcher for a demo.
 	* ruby zosc.rb #sometimes eventmachine complains it isn't initialised but keep running the command until it asks for your name
 	
 * Now send any osc message to the network via localhost on port 9090 and receive from the network on on port 9091
+* Quit with /exit message sent to localhost 9090
 * Enjoy!
