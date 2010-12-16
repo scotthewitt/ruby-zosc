@@ -7,12 +7,13 @@ include  OSC
 puts "What is your name?"
 
 $name = gets.chomp
-$rx_port = 9090
-$tx_port = 9091
+$forwarding_port = 9090
+$local_out_port = 9091
+$rx_port = 9092
 $clients = Array.new
-client = Client.new $tx_port
-$clients << [$name, client]
-server = Server.new $rx_port
+local_out_client = Client.new $local_out_port
+forwarding_server = Server.new $forwarding_port
+rx_server = Server.new $rx_port
 
 zeroconf_registrar = Thread.new() {
   registrar = DNSSD::Service.new
@@ -53,16 +54,23 @@ zeroconf_browse_and_resolve = Thread.new() {
   end
 }
 
-server.add_pattern /.*/ do |*args|       # this will match any address
+forwarding_server.add_pattern "/exit" do |*args|    # this will just match /exit address
+  forwarding_server.stop
+  rx_server.stop
+  exit
+end
+
+forwarding_server.add_pattern /.*/ do |*args|       # this will match any address
   puts "#{ args.join(', ') }"
+  local_out_client.send Message.new(args[0], *args[1..-1])
   $clients.length.times do |i|
     $clients[i][1].send Message.new(args[0], *args[1..-1])
   end
 end
 
-server.add_pattern "/exit" do |*args|    # this will just match /exit address
-  server.stop
-  exit
+rx_server.add_pattern /.*/ do |*args|       # this will match any address
+  puts "#{ args.join(', ') }"
+  local_out_client.send Message.new(args[0], *args[1..-1])
 end
 
 OSC::Thread.join
