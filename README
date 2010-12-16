@@ -41,6 +41,7 @@ I recommend Homebrew http://github.com/mxcl/homebrew for dependancies
 	$ brew install git 
 	$ cd /some/working/dir 
 	$ git clone git://github.com/samBiotic/zosc.git
+        $ cd zosc
 	$ ruby zosc.rb #eventmachine may say it isn't initialised, if so run again
 	
 * Now send any osc message to the network via localhost on port 9090 and receive from the network on on port 9091
