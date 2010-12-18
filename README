@@ -31,7 +31,7 @@ OS X 10.6 comes with Ruby 1.8.7 preinstalled, so we can manage multiple installs
 I recommend Homebrew http://github.com/mxcl/homebrew for dependancies
 
 	$ sudo gem update --system #the version of rubygems that comes with 10.6 is a bit outdated so update it
-	$ sudo sudo gem install rvm 
+	$ sudo gem install rvm 
 	$ rvm-install #follow on screen instructions to add it to your ~/.bash_profile
 	$ rvm install 1.9.2 #latest at time of writing (this may take a while)
 	$ rvm use 1.9.2 #do this for each terminal window you want to run a different version of ruby in
