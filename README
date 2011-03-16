@@ -30,6 +30,7 @@ OS X Developer tools must be installed http://developer.apple.com/xcode/
 
 A local copy of git installed to clone the project, I use Homebrew http://github.com/mxcl/homebrew for my dependencies
 
+        $ ruby -e "$(curl -fsSL https://gist.github.com/raw/323731/install_homebrew.rb)" #check homebrew page for latest install info
 	$ brew install git
 
 Ruby 1.9.1+ or JRuby is needed for the gems used and I recommend latest stable release (see http://www.ruby-lang.org/en/downloads/ )
