@@ -2,11 +2,11 @@
 
 A work in progress that comes with no warranty
 
-== DESCRIPTION:
+== DESCRIPTION
 
 A "one to all" style open sound control router using zeroconf DNS service discovery (aka Bonjour, MDNS)
 
-== SYNOPSIS:
+== SYNOPSIS
 
 Registers on port 9092 as a zeroconf _osc._udp service
 
