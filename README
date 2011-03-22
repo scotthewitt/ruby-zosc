@@ -18,7 +18,8 @@ See the Max MSP 5 example patcher for a demo.
 
 == REQUIREMENTS
 
-<del>This should be cross platform because of the ruby gems used</del> dnssd gem cannot currently be built for windows https://github.com/tenderlove/dnssd/issues#issue/4
+This should be cross platform because of the ruby gems used but the dnssd gem cannot currently be built for windows https://github.com/tenderlove/dnssd/issues#issue/4
+
 Untested on everything but OS X 10.6
 Ruby 1.9.1+ or JRuby
 dnssd gem https://github.com/tenderlove/dnssd
@@ -44,7 +45,6 @@ OS X 10.6 comes with Ruby 1.8.7 pre installed and we can manage multiple install
 	$ ruby -v #check current ruby version
 	$ sudo gem install dnssd
 	$ sudo gem install ruby-osc 
-	$ cd /some/working/dir 
 	$ git clone git://github.com/samBiotic/zosc.git
         $ cd zosc
 	$ ruby zosc.rb #eventmachine may say it isn't initialised, if so wait a few seconds and try it again ($ !!)
