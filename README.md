@@ -18,7 +18,8 @@ See the Max MSP 5 example patcher for a demo.
 
 REQUIREMENTS
 --------------------------
-This should be cross platform because of the ruby gems used but the dnssd gem cannot currently be built for windows https://github.com/tenderlove/dnssd/issues#issue/4
+This should be cross platform because of the ruby gems used but the dnssd gem cannot currently be built for windows
+https://github.com/tenderlove/dnssd/issues#issue/4
 
 Untested on everything but OS X 10.6
 Ruby 1.9.1+ or JRuby
