@@ -18,12 +18,10 @@ See the Max MSP 5 example patcher for a demo.
 
 REQUIREMENTS
 --------------------------
-This should be cross platform because of the ruby gems used but the dnssd gem [cannot currently be built for windows](https://github.com/tenderlove/dnssd/issues#issue/4)
-
-Untested on everything but OS X 10.6
-Ruby 1.9.1+ or JRuby
-[dnssd gem](https://github.com/tenderlove/dnssd)
-[ruby-osc gem](https://github.com/maca/ruby-osc)
+* Ruby 1.9.1+ or JRuby
+* [dnssd gem](https://github.com/tenderlove/dnssd)  this [cannot currently be built for windows](https://github.com/tenderlove/dnssd/issues#issue/4)
+* [ruby-osc gem](https://github.com/maca/ruby-osc)
+* Untested on everything but OS X 10.6.x
 
 OS X INSTALL 
 ---------------------
@@ -33,7 +31,6 @@ A local copy of git installed to clone the project, I use and recommend [Homebre
 
     brew install git
 
-Ruby 1.9.1+ or JRuby is needed for the gems used and I recommend [latest stable release](http://www.ruby-lang.org/en/downloads/)
 OS X 10.6 comes with Ruby 1.8.7 pre installed and we can manage multiple installs of ruby with RVM
 
     sudo gem update --system #the version of rubygems that comes with 10.6 is a bit outdated so update it
@@ -47,10 +44,33 @@ OS X 10.6 comes with Ruby 1.8.7 pre installed and we can manage multiple install
     sudo gem install ruby-osc
     git clone git://github.com/samBiotic/zosc.git
     cd zosc
-    ruby zosc.rb #eventmachine may say it isn't initialised, if so wait a few seconds and try it again ($ !!)
+    ruby zosc.rb 
+    !! #eventmachine may say it isn't initialised on first run, if so wait a few seconds and try it again
 
 USAGE
 -----------	
 * Send any osc message or bundle to all zosc instances on the network via localhost on port 9090 and receive from all zosc instances on port 9091
 * Quit zosc with /exit message sent to localhost 9090
 * Enjoy!
+
+The MIT License
+------------------------
+Copyright (c) 2011 Sam Birkhead
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
