@@ -1,6 +1,6 @@
 zosc
-------
-A work in progress that comes with no warranty
+====
+A work in progress that comes with no warranty, MIT licensed
 
 DESCRIPTION
 ---------------------
@@ -40,14 +40,14 @@ OS X 10.6 comes with Ruby 1.8.7 pre installed and we can manage multiple install
 	sudo gem install rvm  #follow on screen instructions to add it to your ~/.bash_profile
 
         #new terminal window
-	rvm install 1.9.2 #latest at time of writing
-	rvm use 1.9.2 #do this for each terminal window you want to run a different version of ruby in
-	ruby -v #check current ruby version
-	sudo gem install dnssd
-	sudo gem install ruby-osc 
-	git clone git://github.com/samBiotic/zosc.git
+        rvm install 1.9.2 #latest at time of writing
+        rvm use 1.9.2 #do this for each terminal window you want to run a different version of ruby in
+        ruby -v #check current ruby version
+        sudo gem install dnssd
+        sudo gem install ruby-osc
+        git clone git://github.com/samBiotic/zosc.git
         cd zosc
-	ruby zosc.rb #eventmachine may say it isn't initialised, if so wait a few seconds and try it again ($ !!)
+        ruby zosc.rb #eventmachine may say it isn't initialised, if so wait a few seconds and try it again ($ !!)
 
 USAGE
 -----------	
