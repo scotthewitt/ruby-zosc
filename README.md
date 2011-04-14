@@ -36,9 +36,9 @@ A local copy of git installed to clone the project, I use and recommend Homebrew
 Ruby 1.9.1+ or JRuby is needed for the gems used and I recommend latest stable release (see http://www.ruby-lang.org/en/downloads/ )
 OS X 10.6 comes with Ruby 1.8.7 pre installed and we can manage multiple installs of ruby with RVM
 
-	sudo gem update --system #the version of rubygems that comes with 10.6 is a bit outdated so update it
-	sudo gem install rvm  #follow on screen instructions to add it to your ~/.bash_profile
-
+        sudo gem update --system #the version of rubygems that comes with 10.6 is a bit outdated so update it
+        sudo gem install rvm  #follow on screen instructions to add it to your ~/.bash_profile
+        
         #new terminal window
         rvm install 1.9.2 #latest at time of writing
         rvm use 1.9.2 #do this for each terminal window you want to run a different version of ruby in
