@@ -14,8 +14,6 @@ Messages received on port 9090 are routed via unicast to other instances of the 
 Messages received on port 9090 are routed to localhost port 9091
 Messages received on port 9092 from the network are routed to localhost port 9091
 
-See the Max MSP 5 example patcher for a demo.
-
 REQUIREMENTS
 --------------------------
 * Ruby 1.9.1+ or JRuby
@@ -51,6 +49,7 @@ USAGE
 -----------	
 * Send any osc message or bundle to all zosc instances on the network via localhost on port 9090 and receive from all zosc instances on port 9091
 * Quit zosc with /exit message sent to localhost 9090
+* See the Max MSP 5 example patcher for a demo.
 * Enjoy!
 
 The MIT License
