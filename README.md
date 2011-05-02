@@ -19,7 +19,6 @@ REQUIREMENTS
 * Ruby 1.9.1+ or JRuby
 * [dnssd gem](https://github.com/tenderlove/dnssd)  this [cannot currently be built for windows](https://github.com/tenderlove/dnssd/issues#issue/4)
 * [ruby-osc gem](https://github.com/maca/ruby-osc)
-* Untested on everything but OS X 10.6.x
 
 OS X INSTALL 
 ------------------------
