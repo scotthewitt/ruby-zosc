@@ -40,7 +40,7 @@ OS X 10.6 comes with Ruby 1.8.7 pre installed and we can manage multiple install
     ruby -v #check current ruby version
     sudo gem install dnssd
     sudo gem install ruby-osc
-    git clone git://github.com/samBiotic/zosc.git
+    git clone git://github.com/samBiotic/ruby-zosc.git
     cd zosc
     ruby zosc.rb 
     !! #eventmachine may say it isn't initialised on first run, if so wait a few seconds and try it again
